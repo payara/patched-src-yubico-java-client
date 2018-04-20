@@ -172,7 +172,7 @@ public class VerificationRequester {
 			try {
 				return new VerificationResponseImpl(getResponseStream(url));
 			} catch (IOException e) {
-				log.log(Level.WARNING,"Exception when requesting {}: {}", new String[]{url.getHost(), e.getMessage()});
+				log.log(Level.WARNING,"Exception when requesting {0}: {1}", new String[]{url.getHost(), e.getMessage()});
 				throw e;
 			}
 		}
