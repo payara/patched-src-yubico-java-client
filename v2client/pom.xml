@@ -9,7 +9,7 @@
   <parent>
     <groupId>com.yubico</groupId>
     <artifactId>yubico-validation-client</artifactId>
-    <version>3.0.2</version>
+    <version>3.0.2.payara-p1</version>
     <relativePath>../</relativePath>
   </parent>
 
