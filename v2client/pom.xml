@@ -1,68 +1,91 @@
 <!--// Portions Copyright [2018] [Payara Foundation and/or its affiliates]-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <artifactId>yubico-validation-client2</artifactId>
-  <name>Yubico OTP validation client protocol 2</name>
-  <description>Client library written in Java for verifying Yubikey one-time passwords (OTPs) with validation protocol 2.</description>
-  <packaging>jar</packaging>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>yubico-validation-client2</artifactId>
+    <name>Yubico OTP validation client protocol 2</name>
+    <description>Client library written in Java for verifying Yubikey one-time passwords (OTPs) with validation protocol 2.</description>
+    <packaging>jar</packaging>
 
-  <parent>
-    <groupId>com.yubico</groupId>
-    <artifactId>yubico-validation-client</artifactId>
-    <version>3.0.2.payara-p1</version>
-    <relativePath>../</relativePath>
-  </parent>
+    <parent>
+        <groupId>com.yubico</groupId>
+        <artifactId>yubico-validation-client</artifactId>
+        <version>3.0.2.payara-p1</version>
+        <relativePath>../</relativePath>
+    </parent>
 
-  <contributors>
-    <contributor>
-      <name>Linus Widströmer</name>
-      <email>linus.widstromer@it.su.se</email>
-    </contributor>
-    <contributor>
-      <name>Simon Buckle</name>
-      <email>simon@webteq.eu</email>
-    </contributor>
-  </contributors>
+    <contributors>
+        <contributor>
+            <name>Linus Widströmer</name>
+            <email>linus.widstromer@it.su.se</email>
+        </contributor>
+        <contributor>
+            <name>Simon Buckle</name>
+            <email>simon@webteq.eu</email>
+        </contributor>
+    </contributors>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.8.2</version>
-      <scope>test</scope>
-    </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+            <scope>test</scope>
+        </dependency>
 
-  </dependencies>
-  <build>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
-    <plugins>
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifest>
-              <mainClass>com.yubico.client.v2.Cmd</mainClass>
-            </manifest>
-          </archive>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-        </configuration>
-        <executions>
-          <execution>
-            <id>make-my-jar-with-dependencies</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+    </dependencies>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.yubico.client.v2.Cmd</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-my-jar-with-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <archive>  
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                    </archive> 
+                </configuration>
+            </plugin>
+            <plugin>   
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <id>bundle-manifest</id>
+                        <phase>process-classes</phase>
+                        <goals>    
+                            <goal>manifest</goal>
+                        </goals>   
+                    </execution>
+                </executions>
+            </plugin>  
+        </plugins>
+    </build>
 </project>
