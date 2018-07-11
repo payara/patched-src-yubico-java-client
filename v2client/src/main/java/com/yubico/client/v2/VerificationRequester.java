@@ -31,12 +31,11 @@ package com.yubico.client.v2;
 
 	Written by Simon Buckle (simon@webteq.eu), September 2011.
 */
+// Portions Copyright [2018] [Payara Foundation and/or its affiliates]
 
 import com.yubico.client.v2.exceptions.YubicoVerificationException;
 import com.yubico.client.v2.impl.VerificationResponseImpl;
 import java.io.InputStream;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -49,6 +48,8 @@ import static com.yubico.client.v2.ResponseStatus.BACKEND_ERROR;;
 import static com.yubico.client.v2.ResponseStatus.REPLAYED_REQUEST;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.MINUTES;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Fires off a number of validation requests to each specified URL 
@@ -147,7 +148,7 @@ public class VerificationRequester {
 	 */
 	static class VerifyTask implements Callable<VerificationResponse> {
 
-		private final Logger log = LoggerFactory.getLogger(VerifyTask.class);
+		private final Logger log = Logger.getLogger(VerifyTask.class.getName());
 
 		private final String url;
 		private final String userAgent;
@@ -171,7 +172,7 @@ public class VerificationRequester {
 			try {
 				return new VerificationResponseImpl(getResponseStream(url));
 			} catch (IOException e) {
-				log.warn("Exception when requesting {}: {}", url.getHost(), e.getMessage());
+				log.log(Level.WARNING,"Exception when requesting {0}: {1}", new String[]{url.getHost(), e.getMessage()});
 				throw e;
 			}
 		}

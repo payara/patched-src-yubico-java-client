@@ -51,6 +51,8 @@ binding, for example slf4j-log4j with the following Maven configuration:
   <version>1.6.1</version>
  </dependency>
 
+In the Payara patched version of this project the SLF4J Dependency has been removed from the v2 client. Instead the standard java logging is used.
+
 === Read more
 For more complete descriptions of methods and failure states, please see
 the https://developers.yubico.com/yubico-java-client[JavaDoc].
